@@ -1,11 +1,12 @@
 const db = require('../../entities/Database');
-const Svg = require('../../entities/Svg');
-const { BadRequestApiError } = require('../../validators/errors/ApiError');
+const JPG = require('../../entities/jpg');
 
-module.exports = async (req, res, next) => {
-    try {
+module.exports = async (req, res) => {
+  const { content } = req.body;
 
-    } catch (err) {
-        return next(err);
-    }
+  const svgFile = new JPG();
+
+  await db.insert(svgFile, content);
+
+  return res.json(svgFile.toPublicJSON());
 };
