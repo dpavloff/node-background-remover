@@ -1,7 +1,6 @@
 const { Router } = require('express');
 
 const api = require('./api');
-
 // routes for /api
 
 const apiRouter = new Router();

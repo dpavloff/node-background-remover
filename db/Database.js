@@ -1,6 +1,6 @@
 const { EventEmitter } = require('events');
 
-const JPG = require('../entities/JPG');
+const JPG = require('../src/entities/JPG');
 
 class Database extends EventEmitter {
     constructor() {
@@ -22,7 +22,7 @@ class Database extends EventEmitter {
 
 const db = new Database();
 
-db.initFromDump();
+// db.initFromDump();
 
 db.on('changed', () => {
   writeFile(dbDumpFile, prettifyJsonToString(db.toJSON()));

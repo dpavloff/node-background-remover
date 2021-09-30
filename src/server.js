@@ -1,21 +1,17 @@
 const express = require("express");
-const { PORT } = require('./config/index');
+const { PORT,  storageFolder } = require('./config/index');
+
+const { apiRouter } = require('./router');
 
 const app = express();
 
 app.use(express.json());
 
-// Get all pics
-app.get('/list', ((req, res) => {
-    res.send('Hello world!');
-}));
+app.use('/files', express.static(storageFolder));
 
-// Post pic
-app.post('/upload', ((req, res) => {
-    res.send('You just uploaded a picture');
-}));
+app.use('/api', apiRouter);
 
-
+app.get('/', (req, res) => res.json('Welcome to my app!'));
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);

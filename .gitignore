@@ -1,7 +1,5 @@
 node_modules
 
-storage
-
 src/db
 
 .DS_Store
