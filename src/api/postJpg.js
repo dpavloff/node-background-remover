@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
 
     await db.saveJpgMetadata(jpgFile, file);
 
-    return res.send("File uploaded successfully");
+    return res.send(file.id);
   } catch (err) {
     return next(err);
   }
