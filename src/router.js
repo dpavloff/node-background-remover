@@ -1,9 +1,7 @@
 const { Router } = require('express');
-
-const api = require('./api');
-// routes for /api
-
+const api = require('./api'); // routes for /api
 const apiRouter = new Router();
+const upload = require('./middlewares/multer');
 
 // POST /upload 
 // — загрузка изображения (сохраняет его на диск и возвращает идентификатор сохраненного изображения)

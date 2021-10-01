@@ -1,13 +1,21 @@
-const db = require('../../db/Database');
-const JPG = require('../entities/JPG');
+const db = require("../entities/Database");
+const JPG = require("../entities/JPG");
+const { BadRequestApiError } = require("../validators/errors/ApiError");
 
-module.exports = async (req, res) => {
-  // const { content } = req.body;
+module.exports = async (req, res, next) => {
+  try {
+    const { file } = req;
 
-  return res.json('You just posted something!')
-  // const svgFile = new JPG();
+    if (!file) {
+      throw new BadRequestApiError("JPG content should not be empty");
+    }
 
-  // await db.insert(svgFile, content);
+    const jpgFile = new JPG(file);
 
-  // return res.json(svgFile.toPublicJSON());
+    await db.uploadJpg(jpgFile, file);
+
+    return res.send("File uploaded successfully");
+  } catch (err) {
+    return next(err);
+  }
 };

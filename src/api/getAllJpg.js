@@ -1,4 +1,4 @@
-const db = require('../../db/Database');
+const db = require('../entities/Database');
 const JPG = require('../entities/JPG');
 
 module.exports = async (req, res) => {

@@ -8,7 +8,7 @@ const existsFileAsync = util.promisify(fs.exists);
 
 module.exports = {
   writeFile: async (path, content) => {
-    await writeFileAsync(path, content, { encoding: 'utf-8' });
+    await writeFileAsync(path, content, { encoding: 'binary' });
   },
 
   removeFile: async (path) => {

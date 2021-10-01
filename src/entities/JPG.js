@@ -5,10 +5,11 @@ const { writeFile, removeFile } = require('../utils/fs');
 const { storageFolder } = require('../config');
 
 module.exports = class JPG {
-    constructor(id, createdAt) {
+    constructor({ id, createdAt, size }) {
         this.id = id || v4();
         this.createdAt = createdAt || Date.now();
-
+        
+        this.size = size || 1;
         this.originalFilename =`${id}_original.jpg`;
     }
 
