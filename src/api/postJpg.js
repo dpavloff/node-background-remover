@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
     const { file } = req;
 
     if (!file) {
-      throw new BadRequestApiError("JPG content should not be empty");
+      throw new BadRequestApiError("JPG content should not be empty.");
     }
 
     const jpgFile = new JPG(file);
