@@ -5,17 +5,16 @@ const { writeFile, removeFile } = require('../utils/fs');
 const { storageFolder } = require('../config');
 
 module.exports = class JPG {
-    constructor({ id, createdAt, size }) {
+    constructor({ id, createdAt, size, originalname }) {
         this.id = id || v4();
         this.createdAt = createdAt || Date.now();
-        
         this.size = size || 1;
-        this.originalFilename =`${id}_original.jpg`;
+        this.originalFilename = originalname || `${id}_original.jpg`;
     }
 
-    async saveJpg(content) {
-        await writeFile(path.resolve(storageFolder, this.originalFilename), content);
-    }
+    // async saveJpg(content) {
+    //     await writeFile(path.resolve(storageFolder, this.originalFilename), content);
+    // }
 
     async removeJpg() {
         await removeFile(path.resolve(storageFolder, this.originalFilename));

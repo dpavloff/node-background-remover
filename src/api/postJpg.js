@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
 
     const jpgFile = new JPG(file);
 
-    await db.uploadJpg(jpgFile, file);
+    await db.saveJpgMetadata(jpgFile, file);
 
     return res.send("File uploaded successfully");
   } catch (err) {

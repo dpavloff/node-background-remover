@@ -1,7 +1,12 @@
 const { Router } = require('express');
 const api = require('./api'); // routes for /api
 const apiRouter = new Router();
-const upload = require('./middlewares/multer');
+const multer = require("multer");
+const { v4 } = require('uuid');
+const { storageFolder } = require("./config/index");
+
+
+// const upload = require('./middlewares/multer');
 
 // POST /upload 
 // — загрузка изображения (сохраняет его на диск и возвращает идентификатор сохраненного изображения)
@@ -14,7 +19,20 @@ const upload = require('./middlewares/multer');
 // GET /merge?front=<id>&back=<id>&color=145,54,32&threshold=5 
 // — замена фона у изображения
 
-apiRouter.post('/upload', api.postJpg);
+apiRouter.post('/upload', multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, storageFolder);
+        },
+        filename: function(req, file, cb) {
+            file.id = v4();
+            file.originalname = `${file.id}_original.jpg`
+            cb(null, file.originalname);
+        }
+    })
+}).single('image')
+// upload.single('image')
+, api.postJpg);
 apiRouter.get('/image/:id', api.getJpg);
 apiRouter.get('/list', api.getAllJpg);
 apiRouter.delete('/image/:id', api.deleteJpg);

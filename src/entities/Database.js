@@ -40,9 +40,7 @@ class Database extends EventEmitter {
     // }
 
 
-    async uploadJpg(jpg, originalContent) {
-        await jpg.saveJpg(originalContent);
-    
+    async saveJpgMetadata(jpg) {    
         this.idToJpg[jpg.id] = jpg;
     
         this.emit('changed');
