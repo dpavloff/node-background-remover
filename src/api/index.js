@@ -1,12 +1,12 @@
 const deleteJpg = require('./deleteJpg');
-const getAllJpg = require('./getAllJpg');
+const getJpgs = require('./getJpgs');
 const getJpg = require('./getJpg');
 const mergeJpg = require('./mergeJpg');
 const postJpg = require('./postJpg');
 
 module.exports = {
     deleteJpg,
-    getAllJpg,
+    getJpgs,
     getJpg,
     mergeJpg,
     postJpg

@@ -34,7 +34,7 @@ apiRouter.post('/upload', multer({
 // upload.single('image')
 , api.postJpg);
 apiRouter.get('/image/:id', api.getJpg);
-apiRouter.get('/list', api.getAllJpg);
+apiRouter.get('/list', api.getJpgs);
 apiRouter.delete('/image/:id', api.deleteJpg);
 apiRouter.get('/merge?front=<id>&back=<id>&color=145,54,32&threshold=5', api.mergeJpg);
 

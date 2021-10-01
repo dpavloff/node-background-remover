@@ -1,10 +1,8 @@
 const { EventEmitter } = require("events");
 const { existsSync } = require("fs");
-const { path } = require("path");
 const { dbDumpFile } = require("../config");
-const { writeFile, removeFile } = require("../utils/fs");
+const { writeFile } = require("../utils/fs");
 const { prettifyJsonToString } = require("../utils/prettifyJsonToString");
-const { NotFoundApiError } = require("../validators/errors/ApiError");
 
 const JPG = require("../entities/JPG");
 
@@ -37,6 +35,14 @@ class Database extends EventEmitter {
     this.idToJpg[jpg.id] = jpg;
 
     this.emit("changed");
+  }
+
+  find() {
+    let allJpgs = Object.values(this.idToJpg);
+
+    allJpgs.sort((jpgA, jpgB) => jpgB.createdAt - jpgA.createdAt);
+
+    return allJpgs;
   }
 
   async deleteJpg(id) {

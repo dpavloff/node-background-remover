@@ -19,7 +19,7 @@ module.exports = class JPG {
     toPublicJSON() {
         return {
           id: this.id,
-          originalUrl: `/db/jpg/${this.id}_original.jpg`,
+          size: this.size,
           createdAt: this.createdAt
         };
     }
