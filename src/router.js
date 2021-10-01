@@ -29,6 +29,6 @@ apiRouter.get('/list', api.getJpgs);
 apiRouter.delete('/image/:id', api.deleteJpg);
 
 // GET /merge?front=<id>&back=<id>&color=145,54,32&threshold=5 — замена фона у изображения
-apiRouter.get('/merge?front=<id>&back=<id>&color=145,54,32&threshold=5', api.mergeJpg);
+apiRouter.get('/merge/:front&:back&:color&:threshold', api.mergeJpg);
 
 exports.apiRouter = apiRouter;

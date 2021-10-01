@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use('/files', express.static(storageFolder));
 
-app.use('/api', apiRouter);
+app.use('', apiRouter);
 
 app.get('/', (req, res) => res.json('Welcome to my app!'));
 
