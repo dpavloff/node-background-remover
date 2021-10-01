@@ -1,7 +1,6 @@
 const path = require('path');
 const { v4 } = require('uuid');
 const { removeFile } = require('../utils/fs');
-
 const { storageFolder } = require('../config');
 
 module.exports = class JPG {
@@ -21,15 +20,6 @@ module.exports = class JPG {
           id: this.id,
           size: this.size,
           createdAt: this.createdAt
-        };
-    }
-    
-    toJSON() {
-        return {
-            id: this.id,
-            createdAt: this.createdAt,
-            originalFilename: this.originalFilename,
-            size: this.size
         };
     }
 }
