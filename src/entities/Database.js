@@ -1,63 +1,74 @@
-const { EventEmitter } = require('events');
-const { existsSync } = require('fs');
-const { dbDumpFile } = require('../config');
-const { writeFile } = require('../utils/fs');
-const { prettifyJsonToString } = require('../utils/prettifyJsonToString')
+const { EventEmitter } = require("events");
+const { existsSync } = require("fs");
+const { path } = require("path");
+const { dbDumpFile } = require("../config");
+const { writeFile, removeFile } = require("../utils/fs");
+const { prettifyJsonToString } = require("../utils/prettifyJsonToString");
+const { NotFoundApiError } = require("../validators/errors/ApiError");
 
-const JPG = require('../entities/JPG');
+const JPG = require("../entities/JPG");
 
 class Database extends EventEmitter {
-    constructor() {
-        super();
-        
-        this.idToJpg = {};
+  constructor() {
+    super();
+
+    this.idToJpg = {};
+  }
+
+  async initFromDump() {
+    if (existsSync(dbDumpFile) === false) {
+      return;
     }
 
-    async initFromDump() {
-        if (existsSync(dbDumpFile) === false) {
-          return;
-        }
-    
-        const dump = require(dbDumpFile);
-    
-        if (typeof dump.idToJpg === 'object') {
-          this.idToSvg = {};
-    
-          for (let id in dump.idToJpg) {
-            const jpg = dump.idToJpg[id];
-    
-            this.idToJpg[id] = new JPG(jpg.id, jpg.createdAt, jpg.size);
-          }
-        }
+    const dump = require(dbDumpFile);
+
+    if (typeof dump.idToJpg === "object") {
+      this.idToSvg = {};
+
+      for (let id in dump.idToJpg) {
+        const jpg = dump.idToJpg[id];
+
+        this.idToJpg[id] = new JPG(jpg);
+      }
+    }
+  }
+
+  async saveJpgMetadata(jpg) {
+    this.idToJpg[jpg.id] = jpg;
+
+    this.emit("changed");
+  }
+
+  async deleteJpg(id) {
+      const jpgRaw = this.idToJpg[id];
+
+      if (!jpgRaw) {
+        return console.log(`No file with id of ${id} was found in database.`)
       }
 
-    // async uploadJpg() {
-    //     try {
-            
-    //     } catch (err) {
-    //         return err;
-    //     }
-    // }
+      const jpg = new JPG(jpgRaw);
 
+      await jpg.removeJpg();
 
-    async saveJpgMetadata(jpg) {    
-        this.idToJpg[jpg.id] = jpg;
-    
-        this.emit('changed');
-    }
+      delete this.idToJpg[id];
 
-    toJSON() {
-      return {
-        idToJpg: this.idToJpg
-      };
-    }
+      this.emit("changed");
+
+      return id;
+  }
+
+  toJSON() {
+    return {
+      idToJpg: this.idToJpg,
+    };
+  }
 }
 
 const db = new Database();
 
 db.initFromDump();
 
-db.on('changed', () => {
+db.on("changed", () => {
   writeFile(dbDumpFile, prettifyJsonToString(db.toJSON()));
 });
 

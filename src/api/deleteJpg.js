@@ -1,13 +1,18 @@
-const db = require('../entities/Database');
-const JPG = require('../entities/JPG');
+const db = require("../entities/Database");
+const { BadRequestApiError } = require("../validators/errors/ApiError");
 
-module.exports = async (req, res) => {
-  // const { content } = req.body;
-  return res.json('You just posted something!')
+module.exports = async (req, res, next) => {
+  try {
+    const { id } = req.params;
 
-  // const svgFile = new JPG();
+    if (!id) {
+      throw new BadRequestApiError(`Incorrect id was sent. Try again.`);
+    }
 
-  // await db.insert(svgFile, content);
+    await db.deleteJpg(id);
 
-  // return res.json(svgFile.toPublicJSON());
+    return res.send("File and data deleted successfully.");
+  } catch (error) {
+    return next(error);
+  }
 };
