@@ -1,30 +1,29 @@
 class ApiError extends Error {
-    constructor(status, message) {
-      super(message);
-  
-      this.status = status;
-    }
-  
-    sendResponse(res) {
-      return res.status(this.status).json({ message: this.message });
-    }
+  constructor(status, message) {
+    super(message);
+
+    this.status = status;
   }
-  
-  class BadRequestApiError extends ApiError {
-    constructor(message = 'Bad Request') {
-      super(400, message);
-    }
+
+  sendResponse(res) {
+    return res.status(this.status).json({ message: this.message });
   }
-  
-  class NotFoundApiError extends ApiError {
-    constructor(message = 'Not Found') {
-      super(404, message);
-    }
+}
+
+class BadRequestApiError extends ApiError {
+  constructor(message = "Bad Request") {
+    super(400, message);
   }
-  
-  module.exports = {
-    ApiError,
-    BadRequestApiError,
-    NotFoundApiError,
-  };
-  
+}
+
+class NotFoundApiError extends ApiError {
+  constructor(message = "Not Found") {
+    super(404, message);
+  }
+}
+
+module.exports = {
+  ApiError,
+  BadRequestApiError,
+  NotFoundApiError,
+};

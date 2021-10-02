@@ -46,31 +46,31 @@ class Database extends EventEmitter {
   }
 
   findOne(id) {
-   const jpgRaw = this.idToJpg[id];
-   
-   if (!jpgRaw) {
-     return new Error(`No file with id of ${id} was found in database.`)  
-   }
+    const jpgRaw = this.idToJpg[id];
 
-   return jpgRaw;
+    if (!jpgRaw) {
+      return new Error(`No file with id of ${id} was found in database.`);
+    }
+
+    return jpgRaw;
   }
 
   async deleteJpg(id) {
-      const jpgRaw = this.idToJpg[id];
+    const jpgRaw = this.idToJpg[id];
 
-      if (!jpgRaw) {
-        return new Error(`No file with id of ${id} was found in database.`)
-      }
+    if (!jpgRaw) {
+      return new Error(`No file with id of ${id} was found in database.`);
+    }
 
-      const jpg = new JPG(jpgRaw);
+    const jpg = new JPG(jpgRaw);
 
-      await jpg.removeJpg();
+    await jpg.removeJpg();
 
-      delete this.idToJpg[id];
+    delete this.idToJpg[id];
 
-      this.emit("changed");
+    this.emit("changed");
 
-      return id;
+    return id;
   }
 
   toJSON() {
