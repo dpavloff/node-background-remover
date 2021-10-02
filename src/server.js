@@ -13,6 +13,6 @@ app.use('', apiRouter);
 
 app.get('/', (req, res) => res.json('Welcome to my app!'));
 
-app.listen(PORT, () => {
+app.listen(8080, () => {
     console.log(`Server started on port ${PORT}`);
 })
