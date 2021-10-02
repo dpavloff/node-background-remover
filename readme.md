@@ -1,9 +1,7 @@
-### ToDo
 
-1. Реализовать все Api:
-    * POST /upload **DONE** — загрузка изображения (сохраняет его на диск и возвращает идентификатор сохраненного изображения)
-    * GET /list **DONE** - получить список изображений в формате json (должен содержать их id, размер, дата загрузки)
-    * GET /image/:id **DONE** — скачать изображение с заданным id
-    * DELETE /image/:id **DONE** — удалить изображение
-    * GET /merge?front=<id>&back=<id>&color=145,54,32&threshold=5 — замена фона у изображения
-2. **DONE** Сохранять информацию о существующих пикчах в JSON - сделать базу данных, объект JSON, в котором хранится информация id, createdAt 
+Usage:
+* POST /upload - upload JPG file to server.
+* GET /list - return JSON with meta info about uploaded JPGs.
+* GET /image/:id - return image with this id.
+* DELETE /image/:id - delete image from server.
+* GET /merge?front={id}&back={id}&color=(int1,int2,int3)&threshold={int} - return new picture with "back" as background and "front" as foreground. Color and threshold are optional parameters.
