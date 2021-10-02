@@ -1,4 +1,4 @@
-const db = require('../../../db/Database');
+const db = require('../../entities/Database');
 
 module.exports = (req, res, next) => {
   const svgId = req.params.id;

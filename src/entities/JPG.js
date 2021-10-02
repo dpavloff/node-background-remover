@@ -8,7 +8,7 @@ module.exports = class JPG {
         this.id = id || v4();
         this.createdAt = createdAt || Date.now();
         this.size = size || 1;
-        this.originalFilename = originalFilename || `${id}_original.jpg`;
+        this.originalFilename = originalFilename || `${id}_original.jpeg`;
     }
 
     async removeJpg() {
