@@ -10,7 +10,7 @@ module.exports = () => {
             },
             filename: (req, file, cb) => {
                 file.id = v4();
-                file.originalname = `${file.id}_original.jpg`
+                file.originalname = `${file.id}_original.jpeg`
                 cb(null, file.originalname);
             }
         })

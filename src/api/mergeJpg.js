@@ -36,7 +36,7 @@ module.exports = async (req, res, next) => {
           const writableStream = fs.createWriteStream(resImg);
           readableStream.pipe(writableStream);
           readableStream.on("end", () => {
-            res.header('Content-Type', front.mimeType)
+            res.header("Content-Type", "image/jpeg");
             res.sendFile(resImg);
           });
         })
