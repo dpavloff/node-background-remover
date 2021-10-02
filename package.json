@@ -4,14 +4,14 @@
   "description": "Task #1 for yandex interface school.",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/server.js"
+    "test": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.4",
-    "backrem": "^1.0.4",
+    "backrem": "^1.1.0",
     "express": "^4.17.1",
     "uuid": "^8.3.2"
   },

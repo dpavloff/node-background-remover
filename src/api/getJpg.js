@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
 
     if (!id) {
       throw new BadRequestApiError(
-        'Filename should be provided'
+        'Filename should be provided.'
       );
     }
 
@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
     const isFileExists = await exists(pathToFile);
 
     if (isFileExists === false) {
-      throw new NotFoundApiError('Given JPG file not found');
+      throw new NotFoundApiError('Given JPG file was not found in database.');
     }
 
     return res.download(pathToFile);

@@ -45,11 +45,21 @@ class Database extends EventEmitter {
     return allJpgs;
   }
 
+  findOne(id) {
+   const jpgRaw = this.idToJpg[id];
+   
+   if (!jpgRaw) {
+     return new Error(`No file with id of ${id} was found in database.`)  
+   }
+
+   return jpgRaw;
+  }
+
   async deleteJpg(id) {
       const jpgRaw = this.idToJpg[id];
 
       if (!jpgRaw) {
-        return console.log(`No file with id of ${id} was found in database.`)
+        return new Error(`No file with id of ${id} was found in database.`)
       }
 
       const jpg = new JPG(jpgRaw);
