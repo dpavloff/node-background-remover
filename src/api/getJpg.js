@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
       );
     }
 
-    id += '_original.jpg';
+    id += '_original.jpeg';
 
     const pathToFile = path.resolve(storageFolder, id);
     const isFileExists = await exists(pathToFile);

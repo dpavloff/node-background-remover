@@ -32,7 +32,7 @@ module.exports = async (req, res, next) => {
 
       replaceBackground(front, back, color, threshold)
         .then((readableStream) => {
-          let resImg = path.resolve(storageFolder, `./${v4()}_result.jpg`);
+          let resImg = path.resolve(storageFolder, `./${v4()}_result.jpeg`);
           const writableStream = fs.createWriteStream(resImg);
           readableStream.pipe(writableStream);
           readableStream.on("end", () => {
