@@ -1,7 +1,8 @@
 const path = require("path");
+const db = require('../entities/Database');
 const { exists } = require("../utils/fs");
 const { storageFolder } = require("../config/index");
-const { BadRequestApiError } = require("../validators/errors/ApiError");
+const { BadRequestApiError, NotFoundApiError } = require("../validators/errors/ApiError");
 
 module.exports = async (req, res, next) => {
   try {
@@ -11,13 +12,17 @@ module.exports = async (req, res, next) => {
       throw new BadRequestApiError("Filename should be provided.");
     }
 
-    id += "_original.jpeg";
+    const jpg = db.findOne(id);
 
-    const pathToFile = path.resolve(storageFolder, id);
+    if (!jpg) {
+      throw new NotFoundApiError("File was not found in database.")
+    }
+
+    const pathToFile = path.resolve(storageFolder, jpg.originalFilename);
     const isFileExists = await exists(pathToFile);
 
     if (isFileExists === false) {
-      throw new NotFoundApiError("Given JPG file was not found in database.");
+      throw new NotFoundApiError("File was not found in database.");
     }
 
     res.header("content-type", "image/jpeg");
