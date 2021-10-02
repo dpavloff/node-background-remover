@@ -11,7 +11,7 @@ apiRouter.post('/upload', multer({
         destination: (req, file, cb) => {
             cb(null, storageFolder);
         },
-        filename: function(req, file, cb) {
+        filename: (req, file, cb) => {
             file.id = v4();
             file.originalname = `${file.id}_original.jpg`
             cb(null, file.originalname);
