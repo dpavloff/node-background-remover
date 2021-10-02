@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
 
     await db.deleteJpg(id);
 
-    return res.send("File and data deleted successfully.");
+    return res.json({ id });
   } catch (error) {
     return next(error);
   }
