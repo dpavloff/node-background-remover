@@ -28,7 +28,7 @@ module.exports = async (req, res, next) => {
         path.resolve(storageFolder, jpgBackMeta.originalFilename)
       );
       let color = req.query.color ? req.query.color.split(",") : undefined;
-      let threshold = Number(req.query.threshold) || 0;
+      let threshold = Number(req.query.threshold) || 1;
 
       replaceBackground(front, back, color, threshold)
         .then((readableStream) => {
@@ -36,6 +36,7 @@ module.exports = async (req, res, next) => {
           const writableStream = fs.createWriteStream(resImg);
           readableStream.pipe(writableStream);
           readableStream.on("end", () => {
+            res.header('Content-Type', front.mimeType)
             res.sendFile(resImg);
           });
         })
